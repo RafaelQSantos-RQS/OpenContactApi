@@ -28,9 +28,6 @@ replay_pid*
 /build/
 /.settings/
 
-# Arquivos de Log
-*.log
-
 # Arquivos de IDE
 .idea/
 *.iml
