@@ -7,6 +7,7 @@ import br.com.personal.opencontact.api.contact.dto.ContactCreateDTO;
 import br.com.personal.opencontact.api.contact.dto.ContactUpdateDTO;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -82,6 +83,7 @@ public class ContactService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "contactsByAgenda", key = "#agendaId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize + '-' + #nameContains + '-' + #phoneContains")
     public Page<Contact> findAllByCriteria(UUID agendaId, String nameContains, String phoneContains, Pageable pageable) {
         if (!agendaRepository.existsById(agendaId)) {
             throw new EntityNotFoundException("Agenda not found with id: " + agendaId);
