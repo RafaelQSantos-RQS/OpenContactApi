@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17.6-alpine3.22
+    container_name: opencontact-db
+    environment:
+      - POSTGRES_USER=opencontact
+      - POSTGRES_PASSWORD=opencontact
+      - POSTGRES_DB=opencontact
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "opencontact" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  cache:
+    image: redis:8.2.1-alpine3.22
+    container_name: opencontact-cache
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: .
+    container_name: opencontact-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/opencontact
+      - SPRING_DATASOURCE_USERNAME=opencontact
+      - SPRING_DATASOURCE_PASSWORD=opencontact
+      - SPRING_DATA_REDIS_HOST=cache
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_CACHE_TYPE=redis
+
+volumes:
+  postgres_data:
+  redis_data:
