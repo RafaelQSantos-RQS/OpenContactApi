@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableCaching
 public class OpenContactApiApplication {
 
 	public static void main(String[] args) {

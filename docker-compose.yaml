@@ -16,12 +16,6 @@ services:
       timeout: 10s
       retries: 3
 
-  cache:
-    image: redis:8.2.1-alpine3.22
-    container_name: opencontact-cache
-    volumes:
-      - redis_data:/data
-
   app:
     build: .
     container_name: opencontact-api
@@ -33,9 +27,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/opencontact
       - SPRING_DATASOURCE_USERNAME=opencontact
       - SPRING_DATASOURCE_PASSWORD=opencontact
-      - SPRING_DATA_REDIS_HOST=cache
-      - SPRING_DATA_REDIS_PORT=6379
-      - SPRING_CACHE_TYPE=redis
 
 volumes:
   postgres_data:
