@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="personal.agenda.id" value="a1b2c3d4-e5f6-7890-1234-567890abcdef" global="true"/>
+
+    <changeSet id="2" author="Rafael Queiroz Santos" context="dev,test">
+
+        <insert tableName="agendas">
+            <column name="id" value="${personal.agenda.id}"/>
+            <column name="name" value="Agenda Pessoal"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="id" valueComputed="GEN_RANDOM_UUID()"/>
+            <column name="agenda_id" value="${personal.agenda.id}"/>
+            <column name="name" value="Marco Arquiteto (Exemplo)"/>
+            <column name="type" value="MOBILE"/>
+            <column name="area_code" value="11"/>
+            <column name="phone_number" value="987654321"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="id" valueComputed="GEN_RANDOM_UUID()"/>
+            <column name="agenda_id" value="${personal.agenda.id}"/>
+            <column name="name" value="Maria Dev (Exemplo)"/>
+            <column name="type" value="FIXED_LINE"/>
+            <column name="area_code" value="21"/>
+            <column name="phone_number" value="23456789"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="id" valueComputed="GEN_RANDOM_UUID()"/>
+            <column name="agenda_id" value="${personal.agenda.id}"/>
+            <column name="name" value="João Test (Exemplo)"/>
+            <column name="type" value="MOBILE"/>
+            <column name="area_code" value="11"/>
+            <column name="phone_number" value="912345678"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="id" valueComputed="GEN_RANDOM_UUID()"/>
+            <column name="agenda_id" value="${personal.agenda.id}"/>
+            <column name="name" value="Júlia Dev (Exemplo)"/>
+            <column name="type" value="FIXED_LINE"/>
+            <column name="area_code" value="21"/>
+            <column name="phone_number" value="22345678"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="contacts">
+            <column name="id" valueComputed="GEN_RANDOM_UUID()"/>
+            <column name="agenda_id" value="${personal.agenda.id}"/>
+            <column name="name" value="João Dev (Exemplo)"/>
+            <column name="type" value="MOBILE"/>
+            <column name="area_code" value="11"/>
+            <column name="phone_number" value="987654322"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
