@@ -1,19 +1,18 @@
-volumes:
-  postgres_data:
-
+# Define a rede customizada para nossos serviços
 networks:
   opencontact_internal_network:
     name: opencontact_internal_network
     driver: bridge
 
+# Define os volumes persistentes
+volumes:
+  postgres_data:
+
 services:
   db:
     image: postgres:17.6-alpine3.22
     container_name: opencontact-db
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+    env_file: .env
     ports:
       - "5432:5432"
     networks:
@@ -21,16 +20,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "opencontact" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     container_name: opencontact-api
-    env_file:
-      - .env
+    env_file: .env
     ports:
       - "8080:8080"
     networks:
