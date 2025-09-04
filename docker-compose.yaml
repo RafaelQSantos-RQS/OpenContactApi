@@ -3,9 +3,9 @@ services:
     image: postgres:17.6-alpine3.22
     container_name: opencontact-db
     environment:
-      - POSTGRES_USER=opencontact
-      - POSTGRES_PASSWORD=opencontact
-      - POSTGRES_DB=opencontact
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -19,14 +19,12 @@ services:
   app:
     build: .
     container_name: opencontact-api
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     depends_on:
       - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/opencontact
-      - SPRING_DATASOURCE_USERNAME=opencontact
-      - SPRING_DATASOURCE_PASSWORD=opencontact
 
 volumes:
   postgres_data:
