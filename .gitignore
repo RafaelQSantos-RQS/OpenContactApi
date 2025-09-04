@@ -37,3 +37,6 @@ replay_pid*
 # Arquivos do Sistema Operacional
 .DS_Store
 Thumbs.db
+
+# Arquivos de Configuração
+.env
