@@ -93,7 +93,3 @@ Apesar de o MVP estar completo, existem várias melhorias que podem ser implemen
 - [ ] **Segurança:** Adicionar autenticação e autorização usando Spring Security e JWT para proteger os endpoints.
 - [ ] **Tratamento de Erros Avançado:** Criar um DTO de erro padrão para todas as respostas de erro da API.
 - [ ] **Atualizações Parciais (PATCH):** Implementar o verbo HTTP `PATCH` para permitir a atualização de campos individuais de um recurso.
-
------
-
-Com este `README`, qualquer pessoa que encontrar seu projeto no GitHub saberá exatamente do que se trata, as tecnologias envolvidas e, mais importante, como colocá-lo para rodar em poucos minutos.
