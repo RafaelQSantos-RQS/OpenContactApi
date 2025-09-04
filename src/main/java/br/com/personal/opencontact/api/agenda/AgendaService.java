@@ -2,6 +2,7 @@ package br.com.personal.opencontact.api.agenda;
 
 import br.com.personal.opencontact.api.agenda.dto.AgendaCreateDTO;
 import br.com.personal.opencontact.api.agenda.dto.AgendaUpdateDTO;
+import br.com.personal.opencontact.api.common.exceptions.AgendaNameAlreadyExistsException;
 import br.com.personal.opencontact.api.contact.ContactRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,9 @@ public class AgendaService {
 
     @Transactional
     public Agenda create(AgendaCreateDTO createDTO) {
-        // TODO: Validate if the agenda name already exists
+        if (agendaRepository.existsByNameIgnoreCase(createDTO.name())) {
+            throw new AgendaNameAlreadyExistsException("Agenda name '" + createDTO.name() + "' already exists.");
+        }
 
         Agenda newAgenda = new Agenda(createDTO.name());
 
@@ -42,9 +45,17 @@ public class AgendaService {
 
     @Transactional
     public Agenda update(UUID id, AgendaUpdateDTO updateDTO) {
-        Agenda agenda = findById(id);
-        agenda.setName(updateDTO.name());
-        return agendaRepository.save(agenda);
+        Agenda agendaToUpdate = findById(id);
+
+        agendaRepository.findByNameIgnoreCase(updateDTO.name())
+                .ifPresent(existingAgenda -> {
+                    if (!existingAgenda.getId().equals(agendaToUpdate.getId())) {
+                        throw new AgendaNameAlreadyExistsException("Agenda name '" + updateDTO.name() + "' already exists.");
+                    }
+                });
+
+        agendaToUpdate.setName(updateDTO.name());
+        return agendaRepository.save(agendaToUpdate);
     }
 
     @Transactional

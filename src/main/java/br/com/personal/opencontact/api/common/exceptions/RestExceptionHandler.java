@@ -43,4 +43,9 @@ public class RestExceptionHandler {
     public ResponseEntity<Map<String, String>> handleIllegalArgument(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
     }
+
+    @ExceptionHandler(AgendaNameAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleAgendaNameAlreadyExists(AgendaNameAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", ex.getMessage()));
+    }
 }
