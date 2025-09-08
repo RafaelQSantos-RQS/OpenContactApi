@@ -18,7 +18,7 @@ jobs:
 
       - name: ⛔️ Verify tag is on the main branch
         run: |
-          git branch --contains ${{ github.ref_name }} | grep 'origin/main$'
+          git branch -r --contains ${{ github.ref_name }} | grep 'origin/main$'
           echo "✅ Release tag is on the main branch. Proceeding."
 
       - name: Log in to Docker Hub
