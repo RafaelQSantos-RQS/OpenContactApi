@@ -89,7 +89,7 @@ Para verificar a saúde da aplicação e de seus componentes (como a conexão co
 
 Apesar de o MVP estar completo, existem várias melhorias que podem ser implementadas para tornar a API ainda mais robusta e pronta para produção:
 
-- [ ] **Testes Automatizados:** Implementar testes unitários (JUnit/Mockito) para a camada de serviço e testes de integração para a camada de controller.
+- [x] **Testes Automatizados:** Implementar testes unitários (JUnit/Mockito) para a camada de serviço e testes de integração para a camada de controller.
 - [ ] **Segurança:** Adicionar autenticação e autorização usando Spring Security e JWT para proteger os endpoints.
 - [ ] **Tratamento de Erros Avançado:** Criar um DTO de erro padrão para todas as respostas de erro da API.
 - [ ] **Atualizações Parciais (PATCH):** Implementar o verbo HTTP `PATCH` para permitir a atualização de campos individuais de um recurso.
