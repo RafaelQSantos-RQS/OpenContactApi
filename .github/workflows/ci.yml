@@ -15,11 +15,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+          architecture: 'x64'
 
-      - name: Build with Maven and run tests
-        # TODO: Replace with your actual build and test command e.g., './mvnw verify'
-        run: echo "Simulating a successful build and test run..."
+      - name: Run the Maven verify phase
+        run: mvn --batch-mode --update-snapshots verify

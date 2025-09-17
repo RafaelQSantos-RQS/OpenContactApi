@@ -1,10 +1,8 @@
-# Define a rede customizada para nossos serviços
 networks:
   opencontact_internal_network:
     name: opencontact_internal_network
     driver: bridge
 
-# Define os volumes persistentes
 volumes:
   postgres_data:
 
