@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -65,6 +66,13 @@ public class ContactController {
     @DeleteMapping("/contacts/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         contactService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/agendas/{agendaId}/contacts")
+    public ResponseEntity<Void> deleteContactsByNamePrefix(@PathVariable UUID agendaId,
+                                                           @RequestParam String namePrefix) {
+        contactService.deleteContactsByNamePrefix(agendaId, namePrefix);
         return ResponseEntity.noContent().build();
     }
 }

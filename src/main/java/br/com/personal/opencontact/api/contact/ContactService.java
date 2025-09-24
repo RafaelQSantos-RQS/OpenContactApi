@@ -2,6 +2,7 @@ package br.com.personal.opencontact.api.contact;
 
 import br.com.personal.opencontact.api.agenda.Agenda;
 import br.com.personal.opencontact.api.agenda.AgendaRepository;
+import br.com.personal.opencontact.api.agenda.AgendaService;
 import br.com.personal.opencontact.api.common.exceptions.PhoneAlreadyExistsException;
 import br.com.personal.opencontact.api.contact.dto.ContactCreateDTO;
 import br.com.personal.opencontact.api.contact.dto.ContactUpdateDTO;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class ContactService {
 
     private final ContactRepository contactRepository;
+    private final AgendaService agendaService;
     private final AgendaRepository agendaRepository;
 
     @Transactional
@@ -89,5 +91,11 @@ public class ContactService {
 
         Specification<Contact> spec = ContactSpecification.filterBy(agendaId, nameContains, phoneContains);
         return contactRepository.findAll(spec, pageable);
+    }
+
+    @Transactional
+    public void deleteContactsByNamePrefix(UUID agendaId, String namePrefix) {
+        agendaService.findById(agendaId);
+        contactRepository.deleteByAgendaIdAndNameStartingWithIgnoreCase(agendaId, namePrefix);
     }
 }
